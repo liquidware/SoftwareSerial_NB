@@ -1,0 +1,11 @@
+SoftwareSerial_NB
+===========
+
+A library based on Arduino SoftwarSerial that is non-blocking
+
+Features
+========
+
+* Non-blocking reads
+* Non-interrupt based reads
+* Non-interrupt based writes
