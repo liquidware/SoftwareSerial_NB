@@ -1,8 +1,8 @@
-****************************
+/****************************
 * TouchShieldLink
-* An example sketch for the Arduino reads the 
-* Liquidware TouchShield on pins 2 and 3 and
-* forwards the message to the PC
+* An example sketch for the Arduino that reads the 
+* Liquidware TouchShield - http://www.liquidware.com/shop/show/TSL/TouchShield+Slide
+* on pins 2 and 3 and forwards the message to the PC
 *
 *****************************/
 
@@ -21,6 +21,7 @@ void setup() {
 }
 
 char msg[BUFF_SIZE];
+int c;
 int index;
 
 void loop() {
@@ -29,7 +30,7 @@ void loop() {
   
    /* Reset everything */
    index = 0;
-   memset(&msg[0],0,BUFF_SIZE);
+   memset(&msg[0], 0, BUFF_SIZE);
 
    /* Read serial messages */
    while (1) {                       
