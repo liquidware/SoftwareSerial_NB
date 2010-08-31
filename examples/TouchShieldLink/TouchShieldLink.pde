@@ -1,17 +1,51 @@
-#include <SoftwareSerial.h>
+****************************
+* TouchShieldLink
+* An example sketch for the Arduino reads the 
+* Liquidware TouchShield on pins 2 and 3 and
+* forwards the message to the PC
+*
+*****************************/
+
+#include <SoftwareSerial_NB.h>
 
 #define RX_PIN 3
 #define TX_PIN 2
 
-SoftwareSerial mySerial = SoftwareSerial(RX_PIN, TX_PIN);
+#define BUFF_SIZE 64
+
+SoftwareSerial_NB mySerial = SoftwareSerial_NB(RX_PIN, TX_PIN);
 
 void setup() {
-   mySerial.begin(9600);
+   mySerial.begin(9600);  //Open TouchShield connection
+   Serial.begin(9600);    //Open PC connection
 }
 
+char msg[BUFF_SIZE];
+int index;
 
 void loop() {
 
    mySerial.print("Hi TouchShield");
-   mySerial.read();
+  
+   /* Reset everything */
+   index = 0;
+   memset(&msg[0],0,BUFF_SIZE);
+
+   /* Read serial messages */
+   while (1) {                       
+      c = mySerial.read();
+      if (c == -1) {
+         break;         // No more messages found, break out of the loop 
+      }
+      msg[index] = c;
+      index++;
+   }
+   
+   /* Did a message arrive? */
+   if (index) {
+
+      /* Forward to the PC 
+         and maybe do other stuff */
+      Serial.print(msg);   
+   }
 }
